@@ -1,0 +1,49 @@
+:root {
+	/* layout */
+	--mobile-content-width: 375px;
+	--desktop-content-width: 1366px;
+
+	/* primary colors */
+	--scissors-gradient: linear-gradient(180deg, hsl(39, 89%, 49%) 0%, hsl(40, 84%, 53%) 100%);
+	--paper-gradient: linear-gradient(180deg, hsl(230, 89%, 62%) 0%, hsl(230, 89%, 65%) 100%);
+	--rock-gradient: linear-gradient(180deg, hsl(349, 71%, 52%) 0%, hsl(349, 70%, 56%) 100%);
+	--lizard-gradient: linear-gradient(180deg, hsl(261, 73%, 60%) 0%, hsl(261, 72%, 63%) 100%);
+	--spock-gradient: linear-gradient(180deg, hsl(189, 59%, 53%) 0%, hsl(189, 58%, 57%) 100%);
+
+	/* neutral colors */
+	--dark-text-color: hsl(229, 25%, 31%);
+	--score-text-color: hsl(229, 64%, 46%);
+	--header-outline-color: hsl(217, 16%, 45%);
+
+	/* background colors */
+	--background-gradient: radial-gradient(100% 100% at 49.87% 0%, hsl(214, 47%, 23%) 0%, hsl(237, 49%, 15%) 100%);
+
+	/* font styles */
+	--font-family: 'Barlow Semi Condensed', sans-serif;
+	--font-weight-semi-bold: 600;
+	--font-weight-bold: 700;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.App {
+	width: 100vw;
+	height: 100vh;
+	background: var(--background-gradient);
+}
+
+.attribution {
+	font-size: 11px;
+	text-align: center;
+}
+
+.attribution a {
+	color: hsl(228, 45%, 44%);
+}
+
