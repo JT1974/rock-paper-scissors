@@ -1,77 +1,135 @@
+import { useState } from 'react'
+import Hand from './components/Hand'
+
 function App() {
+	const [score, setScore] = useState(0)
+	const [playersPick, setPlayersPick] = useState(null)
+	const [computersPick, setComputersPick] = useState(null)
+	const [winner, setWinner] = useState(null)
+
+	const characters = ['scissors', 'paper', 'rock', 'lizard', 'spock']
+	const rules = new Map([
+		['scissors', ['paper', 'lizard']],
+		['paper', ['rock', 'spock']],
+		['rock', ['scissors', 'lizard']],
+		['lizard', ['paper', 'spock']],
+		['spock', ['scissors', 'rock']],
+	])
+
+	const playerBtnClass = `content--top__btn ${playersPick} ${winner === 'player' ? 'winner' : ''}`
+	const computerBtnClass = `content--top__btn ${computersPick} ${winner === 'computer' ? 'winner' : ''}`
+	const playerImgClass = `/images/icon-${playersPick}.svg`
+	const computerImgClass = `/images/icon-${computersPick}.svg`
+	const gameResultText = winner === 'player' ? 'you win' : 'you lose'
+
+	// displays the RULES modal
+	const showModal = () => document.querySelector('.overlay').classList.remove('hidden')
+
+	// hides the RULES modal
+	const hideModal = () => document.querySelector('.overlay').classList.add('hidden')
+
+	// starts the game - by clicking a button
+	const startGame = playerHand => {
+		// sets the playersPick to the chosen button
+		setPlayersPick(playerHand)
+
+		// pick a hand for the computer
+		let computerHand = characters[Math.floor(Math.random() * 5)]
+
+		// repeat it, until it's not different than the player's hand
+		while (computerHand === playerHand) {
+			// get the computer's hand
+			computerHand = characters[Math.floor(Math.random() * 5)]
+		}
+
+		// sets the computersPick to a random button
+		setComputersPick(computerHand)
+
+		// evaluates the result
+		const betterHand = rules.get(playerHand).includes(computerHand) ? 'player' : 'computer'
+
+		// sets the winner
+		setWinner(betterHand)
+
+		// if Player won, score is incremented, otherwise decremented (til >=0)
+		if (betterHand === 'player') setScore(prevScore => (prevScore += 1))
+		else if (score > 0) setScore(prevScore => (prevScore -= 1))
+	}
+
+	// resets the game
+	const newGame = () => {
+		// sets the playersPick to null
+		setPlayersPick(null)
+
+		// sets the computersPick to null
+		setComputersPick(null)
+
+		// sets the winner to null
+		setWinner(null)
+	}
+
+	// prepares the hand buttons for rendering
+	const hands = characters.map((char, idx) => {
+		return <Hand key={idx} hand={char} handler={startGame} />
+	})
+
 	return (
 		<div className='App'>
 			<header>
 				<img src='images/logo-bonus.svg' alt='Rock, Paper-Scissors-Lizard-Spock Game'></img>
 				<div className='score'>
 					<span className='score--text'>score</span>
-					<span className='score--number'>{12}</span>
+					<span className='score--number'>{score}</span>
 				</div>
 			</header>
 			<main className='content'>
-				{/* 
-					Változáskor a content div tartalmát változtatjuk, egy üres fragment-be csomagoljuk a lenti kódtömbök egyikét.
+				{!playersPick ? (
+					<div className='content--top new-game'>
+						{hands}
 
-					Új játéknál és játék közben csak a content--top-ot rendereljük, új játéknál kap egy 'new-game' stílust is, ami lecsökkenti a gombok méretét.
-
-					Amint a játékos klikkelt, az új content--top már 'new-game' stílus nélkül renderelődik, és ha megvan a nyertes, akkor a content--bottom is renderelődik, illetve a nyertes gombjának 'content--top__btn'-ja kap egy 'winner' stílust is,, ami a glow a gomb körül.
-
-					Mielőtt a számítógép karakterét kitennénk, ki kell tenni egy üres 'content--top__computer'-t ami kap egy 'placeholder' stílust is.
-				*/}
-				<div className='content--top new-game'>
-					<div className='content--top__btn player-choice scissors'>
-						<div className='btn-inner-circle'>
-							<img src='/images/icon-scissors.svg' alt='Scissors' title='Scissors' />
-						</div>
+						<img className='pentagon' src='/images/bg-pentagon.svg' alt='Pentagon' title='Pentagon' />
 					</div>
-					<div className='content--top__btn player-choice paper'>
-						<div className='btn-inner-circle'>
-							<img src='/images/icon-paper.svg' alt='Paper choice' title='Paper choice' />
-						</div>
-					</div>
-					<div className='content--top__btn player-choice rock'>
-						<div className='btn-inner-circle'>
-							<img src='/images/icon-rock.svg' alt='Rock choice' title='Rock choice' />
-						</div>
-					</div>
-					<div className='content--top__btn player-choice lizard'>
-						<div className='btn-inner-circle'>
-							<img src='/images/icon-lizard.svg' alt='Lizard choice' title='Lizard choice' />
-						</div>
-					</div>
-					<div className='content--top__btn player-choice spock'>
-						<div className='btn-inner-circle'>
-							<img src='/images/icon-spock.svg' alt='Spock choice' title='Spock choice' />
-						</div>
-					</div>
-
-					<img className='pentagon' src='/images/bg-pentagon.svg' alt='Pentagon' title='Pentagon' />
-
-					{/* <div className='content--top__player'>
-						<div className='content--top__btn lizard winner'>
-							<div className='btn-inner-circle'>
-								<img src='/images/icon-lizard.svg' alt="Player's choice" title='You picked' />
+				) : (
+					<div className='content--top'>
+						<div className='content--top__player'>
+							<div className={playerBtnClass}>
+								<div className='btn-inner-circle'>
+									<img src={playerImgClass} alt="Player's choice" title='You picked' />
+								</div>
 							</div>
-						</div>
 
-						<span>you picked</span>
-					</div>
-					<div className='content--top__computer'>
-						<div className='content--top__btn spock'>
-							<div className='btn-inner-circle'>
-								<img src='/images/icon-spock.svg' alt="Computer's choice" title='The house picked' />
+							<span>you picked</span>
+						</div>
+						{computersPick ? (
+							<div className='content--top__computer'>
+								<div className={computerBtnClass}>
+									<div className='btn-inner-circle'>
+										<img src={computerImgClass} alt="Computer's choice" title='The house picked' />
+									</div>
+								</div>
+
+								<span>the house picked</span>
 							</div>
-						</div>
+						) : (
+							<div className='content--top__computer placeholder'></div>
+						)}
+					</div>
+				)}
 
-						<span>the house picked</span>
-					</div> */}
-				</div>
-				{/* <div className='content--bottom'>
-					<span className='game-result'>you win</span>
-					<button className='play-again-btn'>play again</button>
-				</div> */}
+				{winner ? (
+					<div className='content--bottom'>
+						<span className='game-result'>{gameResultText}</span>
+						<button className='play-again-btn' onClick={newGame}>
+							play again
+						</button>
+					</div>
+				) : (
+					<></>
+				)}
 			</main>
-			<button className='rules-btn'>RULES</button>
+			<button className='rules-btn' onClick={showModal}>
+				RULES
+			</button>
 			<div className='attribution'>
 				Challenge by
 				<a href='https://www.frontendmentor.io?ref=challenge' target='_blank' rel='noreferrer'>
@@ -83,10 +141,16 @@ function App() {
 				</a>
 				.
 			</div>
-			{/* <div className='overlay'>
+			<div className='overlay hidden'>
 				<div className='modal'>
 					<span className='modal--text'>RULES</span>
-					<img className='modal--icon' src='/images/icon-close.svg' alt='Close modal window' title='Rules' />
+					<img
+						className='modal--icon'
+						src='/images/icon-close.svg'
+						alt='Close modal window'
+						title='Rules'
+						onClick={hideModal}
+					/>
 					<img
 						className='modal--image'
 						src='/images/image-rules-bonus.svg'
@@ -94,7 +158,7 @@ function App() {
 						title='The rules of the game'
 					/>
 				</div>
-			</div> */}
+			</div>
 		</div>
 	)
 }
