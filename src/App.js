@@ -8,6 +8,7 @@ function App() {
 	const [winner, setWinner] = useState(null)
 
 	const characters = ['scissors', 'paper', 'rock', 'lizard', 'spock']
+
 	const rules = new Map([
 		['scissors', ['paper', 'lizard']],
 		['paper', ['rock', 'spock']],
@@ -18,8 +19,6 @@ function App() {
 
 	const playerBtnClass = `content--btn ${playersPick} ${winner === 'player' ? 'winner' : ''}`
 	const computerBtnClass = `content--btn ${computersPick} ${winner === 'computer' ? 'winner' : ''}`
-	const playerImgSrc = `/images/icon-${playersPick}.svg`
-	const computerImgSrc = `/images/icon-${computersPick}.svg`
 	const gameResultText = winner === 'player' ? 'you win' : 'you lose'
 
 	// displays the RULES modal
@@ -70,7 +69,7 @@ function App() {
 
 	// prepares the hand buttons for rendering
 	const hands = characters.map((char, idx) => {
-		return <Hand key={idx} hand={char} handler={startGame} />
+		return <Hand key={idx} style={`content--btn player-choice ${char}`} hand={char} handler={startGame} />
 	})
 
 	return (
@@ -86,16 +85,11 @@ function App() {
 				{!playersPick ? (
 					<div className='content--start-game'>
 						{hands}
-						<img className='pentagon' src='/images/bg-pentagon.svg' alt='Pentagon' title='Pentagon' />
+						<img className='pentagon' src='/images/bg-pentagon.svg' alt='Pentagon' />
 					</div>
 				) : (
 					<div className='content--player'>
-						<div className={playerBtnClass}>
-							<div className='content--btn__inner-circle'>
-								<img src={playerImgSrc} alt="Player's choice" title='You picked' />
-							</div>
-						</div>
-
+						<Hand style={playerBtnClass} hand={playersPick} />
 						<span>you picked</span>
 					</div>
 				)}
@@ -103,12 +97,7 @@ function App() {
 					playersPick && <div className='content--computer placeholder'></div>
 				) : (
 					<div className='content--computer'>
-						<div className={computerBtnClass}>
-							<div className='content--btn__inner-circle'>
-								<img src={computerImgSrc} alt="Computer's choice" title='The house picked' />
-							</div>
-						</div>
-
+						<Hand style={computerBtnClass} hand={computersPick} />
 						<span>the house picked</span>
 					</div>
 				)}

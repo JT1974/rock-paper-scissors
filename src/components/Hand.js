@@ -1,6 +1,6 @@
-export default function Hand({ hand, handler }) {
+export default function Hand({ style, hand, handler }) {
 	return (
-		<div className={`content--btn player-choice ${hand}`} onClick={handler && (() => handler(hand))}>
+		<div className={style} onClick={handler && (() => handler(hand))}>
 			<div className='content--btn__inner-circle'>
 				<img src={`/images/icon-${hand}.svg`} alt={hand} />
 			</div>

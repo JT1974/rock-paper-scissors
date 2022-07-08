@@ -41,7 +41,9 @@ body {
 
 .App {
 	width: 100vw;
+	max-width: 1000px;
 	height: 100vh;
+	margin: auto;
 	padding: 3em;
 	padding-bottom: 1em;
 	display: grid;
