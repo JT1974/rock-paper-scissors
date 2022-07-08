@@ -91,7 +91,7 @@ function App() {
 				{!playersPick ? (
 					<div className='content--start-game'>
 						{hands}
-						<img className='pentagon' src='/images/bg-pentagon.svg' alt='Pentagon' />
+						<img className='pentagon' src='./images/bg-pentagon.svg' alt='Pentagon' />
 					</div>
 				) : (
 					<div className='content--player'>
