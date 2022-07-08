@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Hand from './components/Hand'
 
 function App() {
-	const [score, setScore] = useState(0)
+	const [score, setScore] = useState(() => {
+		const storedScore = +localStorage.getItem('rpsls-score')
+		return storedScore
+	})
 	const [playersPick, setPlayersPick] = useState(null)
 	const [computersPick, setComputersPick] = useState(null)
 	const [winner, setWinner] = useState(null)
@@ -20,6 +23,9 @@ function App() {
 	const playerBtnClass = `content--btn ${playersPick} ${winner === 'player' ? 'winner' : ''}`
 	const computerBtnClass = `content--btn ${computersPick} ${winner === 'computer' ? 'winner' : ''}`
 	const gameResultText = winner === 'player' ? 'you win' : 'you lose'
+
+	//saves the score in localStorage
+	useEffect(() => localStorage.setItem('rpsls-score', score), [score])
 
 	// displays the RULES modal
 	const showModal = () => document.querySelector('.overlay').classList.remove('hidden')
@@ -139,6 +145,7 @@ function App() {
 						title='Rules'
 						onClick={hideModal}
 					/>
+
 					<img
 						className='modal--image'
 						src='/images/image-rules-bonus.svg'
