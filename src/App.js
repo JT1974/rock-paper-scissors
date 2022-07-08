@@ -16,10 +16,10 @@ function App() {
 		['spock', ['scissors', 'rock']],
 	])
 
-	const playerBtnClass = `content--top__btn ${playersPick} ${winner === 'player' ? 'winner' : ''}`
-	const computerBtnClass = `content--top__btn ${computersPick} ${winner === 'computer' ? 'winner' : ''}`
-	const playerImgClass = `/images/icon-${playersPick}.svg`
-	const computerImgClass = `/images/icon-${computersPick}.svg`
+	const playerBtnClass = `content--btn ${playersPick} ${winner === 'player' ? 'winner' : ''}`
+	const computerBtnClass = `content--btn ${computersPick} ${winner === 'computer' ? 'winner' : ''}`
+	const playerImgSrc = `/images/icon-${playersPick}.svg`
+	const computerImgSrc = `/images/icon-${computersPick}.svg`
 	const gameResultText = winner === 'player' ? 'you win' : 'you lose'
 
 	// displays the RULES modal
@@ -84,63 +84,62 @@ function App() {
 			</header>
 			<main className='content'>
 				{!playersPick ? (
-					<div className='content--top new-game'>
+					<div className='content--start-game'>
 						{hands}
-
 						<img className='pentagon' src='/images/bg-pentagon.svg' alt='Pentagon' title='Pentagon' />
 					</div>
 				) : (
-					<div className='content--top'>
-						<div className='content--top__player'>
-							<div className={playerBtnClass}>
-								<div className='btn-inner-circle'>
-									<img src={playerImgClass} alt="Player's choice" title='You picked' />
-								</div>
+					<div className='content--player'>
+						<div className={playerBtnClass}>
+							<div className='content--btn__inner-circle'>
+								<img src={playerImgSrc} alt="Player's choice" title='You picked' />
 							</div>
-
-							<span>you picked</span>
 						</div>
-						{computersPick ? (
-							<div className='content--top__computer'>
-								<div className={computerBtnClass}>
-									<div className='btn-inner-circle'>
-										<img src={computerImgClass} alt="Computer's choice" title='The house picked' />
-									</div>
-								</div>
 
-								<span>the house picked</span>
-							</div>
-						) : (
-							<div className='content--top__computer placeholder'></div>
-						)}
+						<span>you picked</span>
 					</div>
 				)}
+				{!computersPick ? (
+					playersPick && <div className='content--computer placeholder'></div>
+				) : (
+					<div className='content--computer'>
+						<div className={computerBtnClass}>
+							<div className='content--btn__inner-circle'>
+								<img src={computerImgSrc} alt="Computer's choice" title='The house picked' />
+							</div>
+						</div>
 
-				{winner ? (
-					<div className='content--bottom'>
+						<span>the house picked</span>
+					</div>
+				)}
+				{!winner ? (
+					<></>
+				) : (
+					<div className='content--result'>
 						<span className='game-result'>{gameResultText}</span>
 						<button className='play-again-btn' onClick={newGame}>
 							play again
 						</button>
 					</div>
-				) : (
-					<></>
 				)}
 			</main>
-			<button className='rules-btn' onClick={showModal}>
-				RULES
-			</button>
-			<div className='attribution'>
-				Challenge by
-				<a href='https://www.frontendmentor.io?ref=challenge' target='_blank' rel='noreferrer'>
-					Frontend Mentor
-				</a>
-				. Coded by
-				<a href='https://github.com/JT1974' target='_blank' rel='noreferrer'>
-					Janos Takacs
-				</a>
-				.
-			</div>
+			<footer>
+				<button className='rules-btn' onClick={showModal}>
+					RULES
+				</button>
+				<div className='attribution'>
+					Challenge by
+					<a href='https://www.frontendmentor.io?ref=challenge' target='_blank' rel='noreferrer'>
+						Frontend Mentor
+					</a>
+					. Coded by
+					<a href='https://github.com/JT1974' target='_blank' rel='noreferrer'>
+						Janos Takacs
+					</a>
+					.
+				</div>
+			</footer>
+
 			<div className='overlay hidden'>
 				<div className='modal'>
 					<span className='modal--text'>RULES</span>
