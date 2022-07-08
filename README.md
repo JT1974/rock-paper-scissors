@@ -14,7 +14,6 @@ This is a solution to the [Rock, Paper, Scissors challenge on Frontend Mentor](h
     -   [Continued development](#continued-development)
     -   [Useful resources](#useful-resources)
 -   [Author](#author)
--   [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -46,61 +45,52 @@ Users should be able to:
 -   CSS Grid
 -   Mobile-first workflow
 -   [React](https://reactjs.org/) - JS library
--   [Next.js](https://nextjs.org/) - React framework
 -   [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
-
-To see how you can add code snippets, see below:
-
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-
-```css
-.proud-of-this-css {
-	color: papayawhip;
-}
-```
+I have not created any styled components since I had Ania Kubów's 'Learn Styled Components in React' course on Scrimba, so I had to refresh my knowledge. Her course is great, but styled-components.com is also a great rescource. Not too difficult, but props passing and nesting can be tricky, so I needed help.
 
 ```js
-const proudOfThisFunc = () => {
-	console.log('🎉')
-}
+const Button = styled.div`
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	display: flex;
+	place-content: center;
+	align-items: center;
+	z-index: 1;
+
+	${({ hand }) =>
+		hand === 'scissors' &&
+		css`
+			background: linear-gradient(180deg, hsl(39, 89%, 49%) 0%, hsl(40, 84%, 53%) 100%);
+			box-shadow: 0 0.4em 0.4em hsla(0, 0%, 0%, 0.25), inset 0 -0.5em 0 hsla(28, 75%, 44%, 0.7);
+		`};
+`
 ```
-
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
-
-**Note: Delete this note and the content within this section and replace with your own learnings.**
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+Although I've been using it daily, I still spent too much time playing with css (mainly positioning - flex/grid). I need a lot of practice (and more Kevin Powell videos), so I have to work on more Frontend Mentor challenges.
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+I have to practice building styled components, mainly focusing on passing/using props.
+
+I wasted quite a lot of time setting up my first GitHub pages website (this one), and had to work through some tough (for me at least) issues (e.g. accessing the images after building the page, using gh-pages). I could figure that one out, but I have to dive in to that to avoid this frustrating issue in the future.
 
 ### Useful resources
 
--   [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
--   [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+-   CODING MADE SIMPLE (Mosh Hamedani) - [How to use localStorage with React](https://programmingwithmosh.com/react/localstorage-react/)
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+-   styled-components.com - [Styled Components](https://styled-components.com/)
+
+-   Scrimba (Ania Kubów) - [Learn Styled Components in React](https://scrimba.com/learn/styledcomponents)
+
+-   [gh-pages (npm)](https://www.npmjs.com/package/gh-pages)
 
 ## Author
 
--   Website - [Add your name here](https://www.your-site.com)
--   Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
--   Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+-   Website - [Janos Takacs](https://github.com/JT1974)
+-   Frontend Mentor - [@JT1974](https://www.frontendmentor.io/profile/JT1974)
+-   Twitter - [@TakacsJanos7](https://twitter.com/TakacsJanos7)
 
