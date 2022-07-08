@@ -1,11 +1,4 @@
 :root {
-	/* primary colors */
-	--scissors-gradient: linear-gradient(180deg, hsl(39, 89%, 49%) 0%, hsl(40, 84%, 53%) 100%);
-	--paper-gradient: linear-gradient(180deg, hsl(230, 89%, 62%) 0%, hsl(230, 89%, 65%) 100%);
-	--rock-gradient: linear-gradient(180deg, hsl(349, 71%, 52%) 0%, hsl(349, 70%, 56%) 100%);
-	--lizard-gradient: linear-gradient(180deg, hsl(261, 73%, 60%) 0%, hsl(261, 72%, 63%) 100%);
-	--spock-gradient: linear-gradient(180deg, hsl(189, 59%, 53%) 0%, hsl(189, 58%, 57%) 100%);
-
 	/* neutral colors */
 	--dark-text-color: hsl(229, 25%, 31%);
 	--light-text-color: white;
@@ -41,7 +34,6 @@ body {
 
 .App {
 	width: 100vw;
-	max-width: 1000px;
 	height: 100vh;
 	margin: auto;
 	padding: 3em;
@@ -90,9 +82,10 @@ body {
 			&--number {
 				color: var(--dark-text-color);
 				font-size: 4em;
-				line-height: 0.55;
+				line-height: 0.6;
 				font-weight: var(--font-weight-bold);
 				letter-spacing: -0.03em;
+				margin-bottom: 0.1em;
 			}
 		}
 	}
@@ -116,32 +109,45 @@ body {
 			position: relative;
 			height: calc(var(--button-diameter) * 3);
 			width: calc(var(--button-diameter) * 3);
-		}
 
-		&--btn {
-			width: var(--button-diameter);
-			height: var(--button-diameter);
-			border-radius: 50%;
-			display: flex;
-			place-content: center;
-			align-items: center;
-			z-index: 1;
-			cursor: pointer;
+			.rpsls-btn {
+				position: absolute;
+				cursor: pointer;
 
-			&__inner-circle {
-				width: 75%;
-				height: 75%;
-				border-radius: 50%;
-				display: flex;
-				place-content: center;
-				align-items: center;
-				background-color: white;
-				box-shadow: inset 0 0.4em 0 hsla(0, 0%, 0%, 0.25);
+				&:nth-child(1) {
+					top: 0;
+					left: calc(50% - var(--button-diameter) / 2);
+				}
 
-				img {
-					height: 50%;
+				&:nth-child(2) {
+					top: calc(var(--button-diameter) * 0.8);
+					left: calc(50% + var(--button-diameter) / 2);
+				}
+
+				&:nth-child(3) {
+					top: calc(var(--button-diameter) * 2);
+					left: calc(50% + var(--button-diameter) / 10);
+				}
+
+				&:nth-child(4) {
+					top: calc(var(--button-diameter) * 2);
+					left: calc(50% - var(--button-diameter) * 1.1);
+				}
+
+				&:nth-child(5) {
+					top: calc(var(--button-diameter) * 0.8);
+					left: calc(50% - var(--button-diameter) * 1.5);
 				}
 			}
+
+			.rpsls-btn:hover {
+				box-shadow: 0 0 30px hsla(0, 0%, 100%, 0.95);
+			}
+		}
+
+		.rpsls-btn {
+			width: var(--button-diameter);
+			height: var(--button-diameter);
 		}
 
 		img.pentagon {
@@ -150,64 +156,6 @@ body {
 			top: calc(var(--button-diameter) / 2);
 			height: calc(var(--button-diameter) * 2);
 			width: calc(var(--button-diameter) * 2);
-		}
-
-		.player-choice {
-			position: absolute;
-
-			&:nth-child(1) {
-				top: 0;
-				left: calc(50% - var(--button-diameter) / 2);
-			}
-
-			&:nth-child(2) {
-				top: calc(var(--button-diameter) * 0.8);
-				left: calc(50% + var(--button-diameter) / 2);
-			}
-
-			&:nth-child(3) {
-				top: calc(var(--button-diameter) * 2);
-				left: calc(50% + var(--button-diameter) / 10);
-			}
-
-			&:nth-child(4) {
-				top: calc(var(--button-diameter) * 2);
-				left: calc(50% - var(--button-diameter) * 1.1);
-			}
-
-			&:nth-child(5) {
-				top: calc(var(--button-diameter) * 0.8);
-				left: calc(50% - var(--button-diameter) * 1.5);
-			}
-		}
-
-		.player-choice:hover {
-			box-shadow: 0 0 30px hsla(0, 0%, 100%, 0.95);
-		}
-
-		.scissors {
-			background: var(--scissors-gradient);
-			box-shadow: 0 0.4em 0.4em hsla(0, 0%, 0%, 0.25), inset 0 -0.5em 0 hsla(28, 75%, 44%, 0.7);
-		}
-
-		.paper {
-			background: var(--paper-gradient);
-			box-shadow: 0 0.4em 0.4em hsla(0, 0%, 0%, 0.25), inset 0 -0.5em 0 hsl(231, 55%, 37%);
-		}
-
-		.rock {
-			background: var(--rock-gradient);
-			box-shadow: 0 0.4em 0.4em hsla(0, 0%, 0%, 0.25), inset 0 -0.5em 0 hsl(348, 75%, 36%);
-		}
-
-		.lizard {
-			background: var(--lizard-gradient);
-			box-shadow: 0 0.4em 0.4em hsla(0, 0%, 0%, 0.25), inset 0 -0.5em 0 hsl(263, 53%, 45%);
-		}
-
-		.spock {
-			background: var(--spock-gradient);
-			box-shadow: 0 0.4em 0.4em hsla(0, 0%, 0%, 0.25), inset 0 -0.5em 0 hsl(192, 59%, 42%);
 		}
 
 		&--player {
@@ -233,10 +181,6 @@ body {
 				letter-spacing: 0.1em;
 				text-align: center;
 			}
-		}
-
-		.winner:nth-child(1) {
-			box-shadow: 0 0 calc(var(--button-diameter) * 1.5) hsla(0, 0%, 100%, 0.75);
 		}
 
 		.placeholder {
@@ -480,7 +424,7 @@ body {
 
 	.App {
 		padding: 2em;
-		padding-bottom: 1em;
+		padding-bottom: 2em;
 		grid-template-rows: 9.5em 1fr auto;
 
 		header {

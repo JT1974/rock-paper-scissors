@@ -20,8 +20,6 @@ function App() {
 		['spock', ['scissors', 'rock']],
 	])
 
-	const playerBtnClass = `content--btn ${playersPick} ${winner === 'player' ? 'winner' : ''}`
-	const computerBtnClass = `content--btn ${computersPick} ${winner === 'computer' ? 'winner' : ''}`
 	const gameResultText = winner === 'player' ? 'you win' : 'you lose'
 
 	//saves the score in localStorage
@@ -75,13 +73,13 @@ function App() {
 
 	// prepares the hand buttons for rendering
 	const hands = characters.map((char, idx) => {
-		return <Hand key={idx} style={`content--btn player-choice ${char}`} hand={char} handler={startGame} />
+		return <Hand key={idx} hand={char} handler={startGame} />
 	})
 
 	return (
 		<div className='App'>
 			<header>
-				<img src='images/logo-bonus.svg' alt='Rock, Paper-Scissors-Lizard-Spock Game'></img>
+				<img src='./images/logo-bonus.svg' alt='Rock, Paper-Scissors-Lizard-Spock Game'></img>
 				<div className='score'>
 					<span className='score--text'>score</span>
 					<span className='score--number'>{score}</span>
@@ -95,7 +93,7 @@ function App() {
 					</div>
 				) : (
 					<div className='content--player'>
-						<Hand style={playerBtnClass} hand={playersPick} />
+						<Hand winner={winner === 'player'} hand={playersPick} />
 						<span>you picked</span>
 					</div>
 				)}
@@ -103,7 +101,7 @@ function App() {
 					playersPick && <div className='content--computer placeholder'></div>
 				) : (
 					<div className='content--computer'>
-						<Hand style={computerBtnClass} hand={computersPick} />
+						<Hand winner={winner === 'computer'} hand={computersPick} />
 						<span>the house picked</span>
 					</div>
 				)}
