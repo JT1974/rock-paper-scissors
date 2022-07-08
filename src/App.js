@@ -140,7 +140,7 @@ function App() {
 					<span className='modal--text'>RULES</span>
 					<img
 						className='modal--icon'
-						src='/images/icon-close.svg'
+						src='./images/icon-close.svg'
 						alt='Close modal window'
 						title='Rules'
 						onClick={hideModal}
@@ -148,7 +148,7 @@ function App() {
 
 					<img
 						className='modal--image'
-						src='/images/image-rules-bonus.svg'
+						src='./images/image-rules-bonus.svg'
 						alt='Rules window'
 						title='The rules of the game'
 					/>
