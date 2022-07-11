@@ -88,10 +88,7 @@ function App() {
 		<div className='App'>
 			<header>
 				<h1>
-					<img
-						src='rock-paper-scissors/images/logo-bonus.svg'
-						alt='Rock, Paper-Scissors-Lizard-Spock Game'
-					></img>
+					<img src='./images/logo-bonus.svg' alt='Rock, Paper-Scissors-Lizard-Spock Game'></img>
 				</h1>
 
 				<div className='score'>
@@ -103,7 +100,7 @@ function App() {
 				{!playersPick ? (
 					<div className='content--start-game'>
 						{hands}
-						<img className='pentagon' src='rock-paper-scissors/images/bg-pentagon.svg' alt='Pentagon' />
+						<img className='pentagon' src='./images/bg-pentagon.svg' alt='Pentagon' />
 					</div>
 				) : (
 					<div className='content--player'>
@@ -152,7 +149,7 @@ function App() {
 					<span className='modal--text'>RULES</span>
 					<img
 						className='modal--icon'
-						src='rock-paper-scissors/images/icon-close.svg'
+						src='./images/icon-close.svg'
 						alt='Close modal window'
 						title='Rules'
 						onClick={hideModal}
@@ -160,7 +157,7 @@ function App() {
 
 					<img
 						className='modal--image'
-						src='rock-paper-scissors/images/image-rules-bonus.svg'
+						src='./images/image-rules-bonus.svg'
 						alt='Rules window'
 						title='The rules of the game'
 					/>

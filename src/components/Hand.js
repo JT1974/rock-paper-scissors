@@ -64,7 +64,7 @@ export default function Hand({ winner, hand, handler }) {
 	return (
 		<Button hand={hand} className='rpsls-btn' onClick={handler && (() => handler(hand))}>
 			<div>
-				<img src={`rock-paper-scissors/images/icon-${hand}.svg`} alt={hand} />
+				<img src={`./images/icon-${hand}.svg`} alt={hand} />
 			</div>
 		</Button>
 	)
