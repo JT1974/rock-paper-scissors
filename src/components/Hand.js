@@ -44,12 +44,6 @@ const Button = styled.div`
 			box-shadow: 0 0.4em 0.4em hsla(0, 0%, 0%, 0.25), inset 0 -0.5em 0 hsl(192, 59%, 42%);
 		`};
 
-	${({ winner }) =>
-		winner &&
-		css`
-			box-shadow: 0 0 15em hsla(0, 0%, 100%, 0.75);
-		`};
-
 	div {
 		width: 75%;
 		height: 75%;
@@ -68,9 +62,9 @@ const Button = styled.div`
 
 export default function Hand({ winner, hand, handler }) {
 	return (
-		<Button hand={hand} winner={winner} className='rpsls-btn' onClick={handler && (() => handler(hand))}>
+		<Button hand={hand} className='rpsls-btn' onClick={handler && (() => handler(hand))}>
 			<div>
-				<img src={`./images/icon-${hand}.svg`} alt={hand} />
+				<img src={`rock-paper-scissors/images/icon-${hand}.svg`} alt={hand} />
 			</div>
 		</Button>
 	)

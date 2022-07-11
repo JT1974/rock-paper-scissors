@@ -20,7 +20,7 @@ function App() {
 		['spock', ['scissors', 'rock']],
 	])
 
-	const gameResultText = winner === 'player' ? 'you win' : 'you lose'
+	const gameResultText = winner === 'player' ? 'you win' : winner === 'computer' ? 'you lose' : `it's a tie`
 
 	//saves the score in localStorage
 	useEffect(() => localStorage.setItem('rpsls-score', score), [score])
@@ -39,24 +39,32 @@ function App() {
 		// pick a hand for the computer
 		let computerHand = characters[Math.floor(Math.random() * 5)]
 
-		// repeat it, until it's not different than the player's hand
-		while (computerHand === playerHand) {
-			// get the computer's hand
-			computerHand = characters[Math.floor(Math.random() * 5)]
-		}
-
 		// sets the computersPick to a random button
 		setComputersPick(computerHand)
 
 		// evaluates the result
-		const betterHand = rules.get(playerHand).includes(computerHand) ? 'player' : 'computer'
+		const betterHand =
+			playerHand === computerHand ? 'tie' : rules.get(playerHand).includes(computerHand) ? 'player' : 'computer'
 
 		// sets the winner
 		setWinner(betterHand)
 
 		// if Player won, score is incremented, otherwise decremented (til >=0)
 		if (betterHand === 'player') setScore(prevScore => (prevScore += 1))
-		else if (score > 0) setScore(prevScore => (prevScore -= 1))
+		else if (betterHand === 'computer' && score > 0) setScore(prevScore => (prevScore -= 1))
+
+		// dsiplaying the result
+		const timer = setInterval(() => {
+			document.querySelector('.content--result').style.display = 'flex'
+
+			if (betterHand !== 'tie')
+				document.querySelector(
+					`.content--${betterHand}`
+				).firstElementChild.style.boxShadow = `0 0 0 5em hsla(0, 0%, 100%, 0.05), 0 0 0 10em hsla(0, 0%, 100%, 0.03),
+				0 0 0 15em hsla(0, 0%, 100%, 0.01)`
+
+			return clearInterval(timer)
+		}, 3000)
 	}
 
 	// resets the game
@@ -79,7 +87,13 @@ function App() {
 	return (
 		<div className='App'>
 			<header>
-				<img src='./images/logo-bonus.svg' alt='Rock, Paper-Scissors-Lizard-Spock Game'></img>
+				<h1>
+					<img
+						src='rock-paper-scissors/images/logo-bonus.svg'
+						alt='Rock, Paper-Scissors-Lizard-Spock Game'
+					></img>
+				</h1>
+
 				<div className='score'>
 					<span className='score--text'>score</span>
 					<span className='score--number'>{score}</span>
@@ -89,11 +103,11 @@ function App() {
 				{!playersPick ? (
 					<div className='content--start-game'>
 						{hands}
-						<img className='pentagon' src='./images/bg-pentagon.svg' alt='Pentagon' />
+						<img className='pentagon' src='rock-paper-scissors/images/bg-pentagon.svg' alt='Pentagon' />
 					</div>
 				) : (
 					<div className='content--player'>
-						<Hand winner={winner === 'player'} hand={playersPick} />
+						<Hand hand={playersPick} />
 						<span>you picked</span>
 					</div>
 				)}
@@ -101,7 +115,7 @@ function App() {
 					playersPick && <div className='content--computer placeholder'></div>
 				) : (
 					<div className='content--computer'>
-						<Hand winner={winner === 'computer'} hand={computersPick} />
+						<Hand hand={computersPick} />
 						<span>the house picked</span>
 					</div>
 				)}
@@ -138,7 +152,7 @@ function App() {
 					<span className='modal--text'>RULES</span>
 					<img
 						className='modal--icon'
-						src='./images/icon-close.svg'
+						src='rock-paper-scissors/images/icon-close.svg'
 						alt='Close modal window'
 						title='Rules'
 						onClick={hideModal}
@@ -146,7 +160,7 @@ function App() {
 
 					<img
 						className='modal--image'
-						src='./images/image-rules-bonus.svg'
+						src='rock-paper-scissors/images/image-rules-bonus.svg'
 						alt='Rules window'
 						title='The rules of the game'
 					/>
